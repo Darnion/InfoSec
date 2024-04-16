@@ -1,4 +1,5 @@
-﻿using System;
+﻿using InfoSec.Context;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -15,6 +16,15 @@ namespace InfoSec.UI
         public AuthForm()
         {
             InitializeComponent();
+            //dataGridView1.AutoGenerateColumns = false;
+        }
+
+        private void AuthForm_Load(object sender, EventArgs e)
+        {
+            using(var db = new InfoSecDbContext())
+            {
+                dataGridView1.DataSource = db.Activities.Select(x => x.Title).ToList();
+            }
         }
     }
 }
